@@ -1,4 +1,4 @@
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.utils.dateparse import parse_date
 from rest_framework import status
 from rest_framework.response import Response
@@ -16,25 +16,26 @@ class ExpenditureListView(APIView):
         start_date = request.query_params.get("start_date")
         end_date = request.query_params.get("end_date")
         category = request.query_params.get("category")
-        min_amount = request.query_params.get("min_amount", 0)
-        max_amount = request.query_params.get("max_amount", 1000000)
+        min_amount = request.query_params.get("min_amount")
+        max_amount = request.query_params.get("max_amount")
 
-        if start_date:
-            # 날짜 문자열을 날짜 객체로 변환
+        filters = Q(user=request.user)
+        if start_date and end_date:
             start_date = parse_date(start_date)
-        if end_date:
             end_date = parse_date(end_date)
+            filters &= Q(date__range=[start_date, end_date])
 
-        expenditures = Expenditure.objects.filter(
-            user=request.user,
-            date__range=[start_date, end_date],
-            amount__gte=min_amount,
-            amount__lte=max_amount,
-        )
+        if min_amount and max_amount:
+            filters &= Q(amount__get=min_amount, amount__lte=max_amount)
+        elif min_amount:
+            filters &= Q(amount__gte=min_amount)
+        elif max_amount:
+            filters &= Q(amount__lte=max_amount)
 
         if category:
-            expenditures = expenditures.filter(category__name=category)
+            filters &= Q(category__name=category)
 
+        expenditures = Expenditure.objects.filter(filters)
         total_expenditure = expenditures.aggregate(Sum("amount"))
         category_totals = expenditures.values("category__name").annotate(
             total=Sum("amount")
