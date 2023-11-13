@@ -15,9 +15,9 @@ B. 카테고리
 - name(choice_field)
   - 식비 : foodExpenses
   - 교통비 : transportationFee
-  - 유흥비: entertainmentExpenses
   - 통신료 : mobilePhonBill
   - 주거비: housingCost
+  - 기타 : etc
 
 
 
