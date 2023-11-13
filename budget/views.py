@@ -15,7 +15,7 @@ class CategoryListView(APIView):
 
 
 class BudgetView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         category_name = request.data.get("category_name")

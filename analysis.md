@@ -11,13 +11,31 @@ A. 유저
 
 B. 카테고리
 
-- id
-- name(choice_field)
-  - 식비 : foodExpenses
-  - 교통비 : transportationFee
-  - 통신료 : mobilePhonBill
-  - 주거비: housingCost
-  - 기타 : etc
+- Category
+  - id
+  - name
+    - 식비 : foodExpenses
+    - 교통비 : transportationFee
+    - 통신료 : mobilePhonBill
+    - 주거비: housingCost
+    - 기타 : etc
+
+- Budget
+  - user(ForeignKey)
+  - category(ForeignKey)
+  - amount(금액)
+  - period(기간)
+
+
+C. 지출 기록
+
+- Expenditure
+  - user(ForeignKey)
+  - category(ForeignKey)
+  - amount(금액)
+  - date(날짜)
+  - mome(메모)
+  - excluding_total
 
 
 
