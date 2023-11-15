@@ -59,7 +59,7 @@ class ExpenditureListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class DailyExpenditureView(APIView):
+class TodayExpenditureView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
