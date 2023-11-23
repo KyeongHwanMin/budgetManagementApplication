@@ -1,4 +1,5 @@
 # 예산 관리 어플리케이션
+<img src="https://github.com/KyeongHwanMin/budgetmanagementapplication/blob/main/budget.png" width="400" height="400">
 사용자들이 개인 재무를 관리하고 지출을 추적하는 데 도움을 주는 애플리케이션입니다. </br>
 이 앱은 사용자들이 예산을 설정하고 지출을 모니터링하며 재무 목표를 달성하는 데 도움이 됩니다.
 
